@@ -27,7 +27,7 @@
         <div class="food-items">
             {% for food in foods %}
             <div class="food-card card" data-category="{{ food.category }}">
-                <img src="{% if food.image %}{% static 'images/' %}{{ food.image }}{% else %}{% static 'images/default_food.jpg' %}{% endif %}"
+                <img src="{% static 'images/' %}{{ food.image|default:'default_food.jpg' }}"
                      alt="{{ food.name }}" class="food-image">
 
                 <div class="food-info">
@@ -55,31 +55,31 @@
         {% if bookings %}
         <div class="booking-items-grid">
             {% for b in bookings %}
-                {% if b.status != "Cancelled" %}
-                <div class="booking-card card">
-                    <h4>Booking #{{ b.id }}</h4>
-                    <p><strong>Delivery Address:</strong> {{ b.address }}</p>
-                    <div class="booking-food-items">
-                        {% for item in b.food_items.all %}
-                        <div class="booking-food-card card">
-                            <img src="{% if item.image %}{% static 'images/' %}{{ item.image }}{% else %}{% static 'images/default_food.jpg' %}{% endif %}"
-                                 alt="{{ item.name }}" class="food-image">
-                            <div class="food-info">
-                                <h5>{{ item.name }}</h5>
-                                <strong>₹{{ item.price }}</strong>
-                            </div>
+            {% if b.status != "Cancelled" %}
+            <div class="booking-card card">
+                <h4>Booking #{{ b.id }}</h4>
+                <p><strong>Delivery Address:</strong> {{ b.address }}</p>
+                <div class="booking-food-items">
+                    {% for item in b.food_items.all %}
+                    <div class="booking-food-card card">
+                        <img src="{% if item.image %}{% static 'images/' %}{{ item.image }}{% else %}{% static 'images/default_food.jpg' %}{% endif %}"
+                             alt="{{ item.name }}" class="food-image">
+                        <div class="food-info">
+                            <h5>{{ item.name }}</h5>
+                            <strong>₹{{ item.price }}</strong>
                         </div>
-                        {% endfor %}
                     </div>
-                    <p><strong>Status:</strong> {{ b.status }}</p>
-                    <div class="booking-actions">
-                        {% if b.status in "Start Reached Collected Delivered" %}
-                        <button class="btn btn-chat" data-booking="{{ b.id }}">Chat</button>
-                        {% endif %}
-                        <a href="{% url 'cancel_booking' b.id %}" class="btn btn-cancel">Cancel</a>
-                    </div>
+                    {% endfor %}
                 </div>
-                {% endif %}
+                <p><strong>Status:</strong> {{ b.status }}</p>
+                <div class="booking-actions">
+                    {% if b.status in "Start Reached Collected Delivered" %}
+                    <button class="btn btn-chat" data-booking="{{ b.id }}">Chat</button>
+                    {% endif %}
+                    <a href="{% url 'cancel_booking' b.id %}" class="btn btn-cancel">Cancel</a>
+                </div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
         {% else %}
