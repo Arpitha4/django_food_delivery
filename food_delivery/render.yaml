@@ -7,6 +7,6 @@ services:
   repo: https://github.com/Arpitha4/django_food_delivery
   plan: free
   region: singapore
-  buildCommand: pip install -r food_delivery/requirements.txt
+  buildCommand: pip install -r requirements.txt
   startCommand: gunicorn food_delivery.wsgi
   autoDeployTrigger: commit
