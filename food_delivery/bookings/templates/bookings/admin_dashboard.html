@@ -1,0 +1,52 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/admin_dashboard.css">
+
+<h2>Admin Dashboard</h2>
+
+<div class="table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer</th>
+                <th>Food Items</th>
+                <th>Status</th>
+                <th>Assign Delivery Partner</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in bookings %}
+            <tr>
+                <td>{{ b.id }}</td>
+                <td>{{ b.customer.username }}</td>
+                <td class="food-items-column">
+                    {% for item in b.food_items.all %}
+                        {{ item.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>{{ b.status }}</td>
+                <td>
+                    {% if b.status != 'assigned' %}
+                    <form method="POST" action="{% url 'assign_delivery' b.id %}" class="assign-form">
+                        {% csrf_token %}
+                        <select name="delivery_partner" required>
+                            <option value="">Select</option>
+                            {% for dp in delivery_partners %}
+                            <option value="{{ dp.id }}">{{ dp.username }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Assign</button>
+                    </form>
+                    {% else %}
+                        Assigned to {{ b.delivery_partner.username }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

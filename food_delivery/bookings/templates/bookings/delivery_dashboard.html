@@ -1,0 +1,86 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/delivery_dashboard.css' %}">
+
+<div class="dashboard-container">
+    <header>
+        <center><h1>Dashboard</h1></center>
+        <p>Welcome! Manage your assigned bookings.</p>
+    </header>
+
+    <section class="bookings-section">
+        <h3>Assigned Bookings</h3>
+        <form id="csrf-form">{% csrf_token %}</form>
+        <table class="bookings-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Order Items</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th>Chats</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr id="booking-{{ booking.id }}">
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.customer.username }}</td>
+                    <td>{{ booking.address }}</td>
+                    <td>
+                        {% for item in booking.food_items.all %}
+                            {{ item.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}-{% endfor %}
+                    </td>
+                    <td class="status">{{ booking.status }}</td>
+                    <td>
+                        {% if booking.delivery_partner == request.user %}
+                            <!-- Enable actions only for the assigned delivery partner -->
+                            {% for st in statuses %}
+                            <button class="status-btn"
+                                    style="margin:2px; padding:5px;"
+                                    data-id="{{ booking.id }}"
+                                    data-status="{{ st }}">
+                                {{ st }}
+                            </button>
+                            {% endfor %}
+                        {% else %}
+                            <!-- Disable buttons if not assigned to this delivery partner -->
+                            {% for st in statuses %}
+                            <button class="status-btn" style="margin:2px; padding:5px;" disabled>
+                                {{ st }}
+                            </button>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="btn btn-chat" data-booking="{{ booking.id }}" style="padding:5px;">Chat</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No bookings assigned yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+
+<div id="chat-modal" style="display:none;">
+    <div id="chat-content">
+        <span id="close-chat">&times;</span>
+        <h4>Chat with Delivery Partner</h4>
+        <div id="messages" style="height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px;"></div>
+        <input type="text" id="chat-input" placeholder="Type your message..." style="width:80%;">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/delivery_dashboard.js' %}"></script>
+{% endblock %}

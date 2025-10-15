@@ -1,0 +1,107 @@
+/* Reset + Fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #fffaf8;
+    color: #333;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #ff5722;
+}
+
+/* Food Items Grid */
+.food-menu .food-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.food-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.food-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.food-info {
+    padding: 10px 15px;
+}
+
+.select-food {
+    margin-top: 10px;
+}
+
+/* Delivery Address */
+.delivery-address {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.delivery-address input {
+    width: 90%;
+    max-width: 500px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    margin: 10px auto;
+    display: block;
+}
+
+.btn-primary {
+    background-color: #ff5722;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #e64a19;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .food-menu .food-items {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .delivery-address input {
+        width: 95%;
+    }
+}

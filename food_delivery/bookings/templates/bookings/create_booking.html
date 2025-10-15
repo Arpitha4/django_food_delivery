@@ -1,0 +1,36 @@
+{% extends "bookings/base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/create_booking.css">
+<h2>Create Booking</h2>
+<form method="POST" action="/bookings/create/">
+  {% csrf_token %}
+  <section class="food-menu">
+    <h3>Select Foods</h3>
+    <div class="food-items">
+      {% for food in foods %}
+      <div class="food-card card">
+        <img src="{{ food.image.url }}" alt="{{ food.name }}" class="food-image">
+        <div class="food-info">
+          <h4>{{ food.name }}</h4>
+          <p>{{ food.description }}</p>
+          <strong>₹{{ food.price }}</strong>
+          <div class="select-food">
+            <input type="checkbox" name="food_ids" value="{{ food.id }}" id="food{{ food.id }}">
+            <label for="food{{ food.id }}">Select</label>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="delivery-address">
+    <h3>Delivery Address</h3>
+    <input type="text" name="address" placeholder="Enter delivery address" required>
+  </section>
+
+  <button type="submit" class="btn btn-primary">Create Booking</button>
+</form>
+
+{% endblock %}

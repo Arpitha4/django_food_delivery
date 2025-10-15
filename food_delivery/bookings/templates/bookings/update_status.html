@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Booking Status</h2>
+<p>Booking ID: {{ booking.id }} | Current Status: {{ booking.status }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <select name="status" required>
+    {% for key, value in booking.STATUS_CHOICES %}
+      <option value="{{ key }}" {% if booking.status == key %}selected{% endif %}>{{ value }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

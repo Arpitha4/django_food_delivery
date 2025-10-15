@@ -1,0 +1,222 @@
+/* Top Controls */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.food-category-filter {
+  display: flex;
+  gap: 10px;
+}
+
+.category-btn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  background: #ff5722;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.category-btn.active,
+.category-btn:hover {
+  background: #e64a19;
+}
+
+.top-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.top-book-btn,
+.btn-orders {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.top-book-btn {
+  background: #4caf50;
+  color: #fff;
+}
+
+.top-book-btn:hover {
+  background: #388e3c;
+}
+
+.btn-orders {
+  background: #03a9f4;
+  color: #fff;
+}
+
+.btn-orders:hover {
+  background: #0288d1;
+}
+
+/* Food Menu Grid */
+.food-menu .food-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.food-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.food-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.food-info {
+  padding: 10px;
+}
+
+/* Right-side Sliding Panel */
+#bookings-panel {
+  position: fixed;
+  right: -400px;
+  top: 80px;
+  width: 400px;
+  height: calc(100% - 100px);
+  background: #fff;
+  box-shadow: -3px 0 15px rgba(0,0,0,0.15);
+  overflow-y: auto;
+  transition: right 0.4s ease;
+  z-index: 2000;
+  padding: 15px;
+  border-radius: 12px 0 0 12px;
+}
+
+#bookings-panel.visible { right: 0; }
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#close-panel { font-size: 1.5rem; cursor: pointer; }
+
+/* Booking Food Cards */
+.booking-food-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.booking-food-card {
+  width: 100px;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.booking-food-card .food-image {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+
+.booking-food-card .food-info { padding: 5px; }
+
+.booking-actions a, .booking-actions button {
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 5px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn-chat { background: #4caf50; }
+.btn-chat:hover { background: #388e3c; }
+
+.btn-cancel { background: #f44336; }
+.btn-cancel:hover { background: #d32f2f; }
+
+/* Chat Modal */
+#chat-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+  z-index: 5000;
+}
+
+#chat-content { display: flex; flex-direction: column; }
+
+#close-chat {
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#messages {
+  height: 250px;
+  overflow-y: auto;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+#chat-input {
+  width: 70%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  margin-right: 5px;
+}
+
+#send-btn {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+#send-btn:hover { background: #388e3c; }
+/* Delivery Address in Booking Card */
+.booking-card p strong {
+    font-weight: 500;
+    color: #555;
+}
+
+.booking-card p {
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}

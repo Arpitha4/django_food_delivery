@@ -1,0 +1,164 @@
+/* 🌐 Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #fafafa;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* 🧭 Header */
+.header {
+    background: linear-gradient(90deg, #111827, #1f2937); /* rich dark tone */
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 16px 0;
+}
+
+/* Layout Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 🍴 Logo */
+.logo {
+    font-size: 1.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fbbf24; /* gold accent */
+}
+
+.logo::after {
+    content: "";
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fde68a;
+}
+
+/* 🔗 Navigation */
+.nav a {
+    color: #e5e7eb;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: #fbbf24;
+    transition: 0.3s;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.nav a:hover {
+    color: #fbbf24;
+}
+
+/* 🍽️ Main Content */
+.main-content {
+    padding: 70px 20px;
+    background: #ffffff;
+    min-height: 70vh;
+    animation: fadeIn 0.5s ease-in-out;
+    border-top: 3px solid #fbbf24;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 📦 Card Styles */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* 🧈 Button */
+.btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    color: #111;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #fcd34d, #f59e0b);
+    transform: translateY(-2px);
+}
+
+/* ⚓ Footer */
+.footer {
+    background: #111827;
+    color: #e5e7eb;
+    text-align: center;
+    padding: 25px 10px;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    border-top: 2px solid #fbbf24;
+}
+
+.footer p {
+    opacity: 0.9;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .logo {
+        margin-bottom: 12px;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav a {
+        margin: 10px 0;
+        font-size: 1.05rem;
+    }
+}

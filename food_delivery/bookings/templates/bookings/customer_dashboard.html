@@ -1,0 +1,104 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/customer_dashboard.css' %}">
+
+<center><h1>Dashboard</h1></center>
+
+<section class="top-controls">
+    <div class="food-category-filter">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="north">North Indian</button>
+        <button class="category-btn" data-category="south">South Indian</button>
+    </div>
+    <div class="top-buttons">
+        <button id="open-bookings" class="btn btn-orders">Your Orders</button>
+        <button type="button" id="open-booking-modal" class="btn btn-primary top-book-btn">Book Selected Food</button>
+    </div>
+</section>
+
+<section class="food-menu">
+    <form id="food-form" method="POST" action="{% url 'create_booking' %}">
+        {% csrf_token %}
+        <!-- Hidden address input -->
+        <input type="hidden" name="address" id="booking-address">
+
+        <div class="food-items">
+            {% for food in foods %}
+            <div class="food-card card" data-category="{{ food.category }}">
+                <img src="{% if food.image %}{% static 'images/' %}{{ food.image }}{% else %}{% static 'images/default_food.jpg' %}{% endif %}"
+                     alt="{{ food.name }}" class="food-image">
+
+                <div class="food-info">
+                    <h4>{{ food.name }}</h4>
+                    <p>{{ food.description }}</p>
+                    <strong>₹{{ food.price }}</strong>
+                    <div class="select-food">
+                        <input type="checkbox" name="food_ids" value="{{ food.id }}" id="food{{ food.id }}">
+                        <label for="food{{ food.id }}">Select</label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</section>
+
+<!-- BOOKINGS PANEL -->
+<div id="bookings-panel">
+    <div class="panel-header">
+        <h3>Your Orders</h3>
+        <span id="close-panel">&times;</span>
+    </div>
+    <div class="panel-content">
+        {% if bookings %}
+        <div class="booking-items-grid">
+            {% for b in bookings %}
+                {% if b.status != "Cancelled" %}
+                <div class="booking-card card">
+                    <h4>Booking #{{ b.id }}</h4>
+                    <p><strong>Delivery Address:</strong> {{ b.address }}</p>
+                    <div class="booking-food-items">
+                        {% for item in b.food_items.all %}
+                        <div class="booking-food-card card">
+                            <img src="{% if item.image %}{% static 'images/' %}{{ item.image }}{% else %}{% static 'images/default_food.jpg' %}{% endif %}"
+                                 alt="{{ item.name }}" class="food-image">
+                            <div class="food-info">
+                                <h5>{{ item.name }}</h5>
+                                <strong>₹{{ item.price }}</strong>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p><strong>Status:</strong> {{ b.status }}</p>
+                    <div class="booking-actions">
+                        {% if b.status in "Start Reached Collected Delivered" %}
+                        <button class="btn btn-chat" data-booking="{{ b.id }}">Chat</button>
+                        {% endif %}
+                        <a href="{% url 'cancel_booking' b.id %}" class="btn btn-cancel">Cancel</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No bookings yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- CHAT MODAL -->
+<div id="chat-modal" style="display:none;">
+    <div id="chat-content">
+        <span id="close-chat">&times;</span>
+        <h4>Chat with Delivery Partner</h4>
+        <div id="messages" style="height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px;"></div>
+        <input type="text" id="chat-input" placeholder="Type your message..." style="width:80%;">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/customer_dashboard.js' %}"></script>
+{% endblock %}
