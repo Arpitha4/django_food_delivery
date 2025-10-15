@@ -1,0 +1,107 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "password": "",
+      "email": "",
+      "mobile_number": "9999999990",
+      "role": "admin",
+      "is_superuser": true,
+      "is_staff": true
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "username": "customer1",
+      "password": "",
+      "email": "",
+      "mobile_number": "9999999991",
+      "role": "customer",
+      "is_superuser": false,
+      "is_staff": false
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "username": "delivery1",
+      "password": "",
+      "email": "",
+      "mobile_number": "9999999992",
+      "role": "delivery",
+      "is_superuser": false,
+      "is_staff": false
+    }
+  },
+  {
+    "model": "food_delivery.food",
+    "pk": 1,
+    "fields": {
+      "name": "Paneer Butter Masala",
+      "description": "Delicious creamy paneer dish",
+      "price": "250.00",
+      "category": "north",
+      "image": "food_images/paneer.jpg"
+    }
+  },
+  {
+    "model": "food_delivery.food",
+    "pk": 2,
+    "fields": {
+      "name": "Dosa",
+      "description": "Crispy South Indian dosa",
+      "price": "100.00",
+      "category": "south",
+      "image": "food_images/dosa.jpg"
+    }
+  },
+  {
+    "model": "food_delivery.food",
+    "pk": 3,
+    "fields": {
+      "name": "Idli Sambar",
+      "description": "Soft steamed idlis served with spicy sambar",
+      "price": "80.00",
+      "category": "south",
+      "image": "food_images/idli_sambar.jpg"
+    }
+  },
+  {
+    "model": "food_delivery.food",
+    "pk": 4,
+    "fields": {
+      "name": "Veg Biryani",
+      "description": "Aromatic vegetarian biryani with spices and vegetables",
+      "price": "180.00",
+      "category": "north",
+      "image": "food_images/veg_biryani.jpg"
+    }
+  },
+  {
+    "model": "food_delivery.booking",
+    "pk": 1,
+    "fields": {
+      "customer": 2,
+      "delivery_partner": 3,
+      "address": "",
+      "status": "pending",
+      "created_at": "",
+      "food_items": [1]
+    }
+  },
+  {
+    "model": "food_delivery.chatmessage",
+    "pk": 1,
+    "fields": {
+      "booking": 1,
+      "sender": 2,
+      "message": "",
+      "timestamp": ""
+    }
+  }
+]
