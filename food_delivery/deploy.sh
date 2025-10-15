@@ -14,3 +14,4 @@ python manage.py loaddata fixtures/initial_data.json
 # Start Gunicorn
 echo "Starting Gunicorn..."
 gunicorn food_delivery.wsgi
+python manage.py collectstatic --noinput
