@@ -4,7 +4,8 @@ import os
 
 # BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_DIR = (os.path.join(BASE_DIR, "static"))
 # URL for serving static files
 STATIC_URL = '/static/'
 
@@ -16,11 +17,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-
 # SECURITY
 SECRET_KEY = 'django-insecure-7&$x@!m5t*1w#k+2p8)q%v1!u=2j!s@5^&l$0g^r'
 DEBUG = True
-ALLOWED_HOSTS = ['FoodieExpress.com']
+ALLOWED_HOSTS = ['*']
 
 # INSTALLED APPS
 INSTALLED_APPS = [
@@ -67,7 +67,6 @@ TEMPLATES = [
     },
 ]
 
-
 ASGI_APPLICATION = 'food_delivery.asgi.application'
 
 # CHANNELS (in-memory for development)
@@ -105,7 +104,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # DEFAULT AUTO FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-WSGI_APPLICATION = 'myproject.wsgi.application'
+WSGI_APPLICATION = 'food_delivery.wsgi.application'
 # CUSTOM USER MODEL
 AUTH_USER_MODEL = 'accounts.User'
 
