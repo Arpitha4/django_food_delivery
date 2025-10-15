@@ -88,9 +88,9 @@
     "fields": {
       "customer": 2,
       "delivery_partner": 3,
-      "address": "",
+      "address": "123 Sample Street",
       "status": "pending",
-      "created_at": "",
+      "created_at": "2025-10-15T21:30:00Z",
       "food_items": [1]
     }
   },
@@ -100,8 +100,8 @@
     "fields": {
       "booking": 1,
       "sender": 2,
-      "message": "",
-      "timestamp": ""
+      "message": "Hello, I would like this delivered soon.",
+      "timestamp": "2025-10-15T21:35:00Z"
     }
   }
 ]
