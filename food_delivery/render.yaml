@@ -1,0 +1,12 @@
+# Exported from Render on 2025-10-15T13:11:56Z
+version: "1"
+services:
+- type: web
+  name: food-delivery
+  runtime: python
+  repo: https://github.com/Arpitha4/django_food_delivery
+  plan: free
+  region: singapore
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn food_delivery.wsgi
+  autoDeployTrigger: commit
