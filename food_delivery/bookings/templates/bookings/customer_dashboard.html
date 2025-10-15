@@ -27,7 +27,7 @@
         <div class="food-items">
             {% for food in foods %}
             <div class="food-card card" data-category="{{ food.category }}">
-                <img src="{% static 'images/' %}{{ food.image|default:'default_food.jpg' }}"
+                <img src="https://raw.githubusercontent.com/Arpitha4/django_food_delivery/main/static/images/{{ food.image }}"
                      alt="{{ food.name }}" class="food-image">
 
                 <div class="food-info">
