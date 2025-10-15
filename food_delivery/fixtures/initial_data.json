@@ -39,7 +39,7 @@
     }
   },
   {
-    "model": "food_delivery.food",
+    "model": "bookings.food",
     "pk": 1,
     "fields": {
       "name": "Paneer Butter Masala",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "model": "food_delivery.food",
+    "model": "bookings.food",
     "pk": 2,
     "fields": {
       "name": "Dosa",
@@ -61,7 +61,7 @@
     }
   },
   {
-    "model": "food_delivery.food",
+    "model": "bookings.food",
     "pk": 3,
     "fields": {
       "name": "Idli Sambar",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "food_delivery.food",
+    "model": "bookings.food",
     "pk": 4,
     "fields": {
       "name": "Veg Biryani",
@@ -83,7 +83,7 @@
     }
   },
   {
-    "model": "food_delivery.booking",
+    "model": "bookings.booking",
     "pk": 1,
     "fields": {
       "customer": 2,
@@ -95,7 +95,7 @@
     }
   },
   {
-    "model": "food_delivery.chatmessage",
+    "model": "bookings.chatmessage",
     "pk": 1,
     "fields": {
       "booking": 1,
