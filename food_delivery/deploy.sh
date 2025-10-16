@@ -19,7 +19,9 @@ if not User.objects.filter(username=mobile_number).exists():
         username=mobile_number,
         email=email,
         password=password,
-        mobile_number=mobile_number
+        mobile_number=mobile_number,
+        is_staff=True,
+        is_superuser=True
     )
     print("Superuser created successfully!")
 else:
