@@ -27,6 +27,9 @@ Foodie Express is a Django-based food delivery application that allows customers
   - The project deployed on platform Render. Static files are handled via Django collectstatic, and database migrations are applied before running the server.
 
 ## 6. Screenshots
+  - Home page
+  ![Image]<img width="940" height="460" alt="image" src="https://github.com/user-attachments/assets/874e15d5-f909-4a7c-9450-80fb27371fd2" />
+  
   - Customer Dashboard
   ![Image]<img width="940" height="460" alt="image" src="https://github.com/user-attachments/assets/4d251960-d04b-4c59-9fd9-327ae5a6e655" />
 
@@ -39,4 +42,5 @@ Foodie Express is a Django-based food delivery application that allows customers
   - Booking & Chat
   ![Image]<img width="940" height="456" alt="image" src="https://github.com/user-attachments/assets/fabba42e-15bf-4add-ba2e-afba532f33d7" />
 
-
+## 7. Documentation 
+  - Document:[documentation](https://github.com/Arpitha4/django_food_delivery/blob/450dbac6916b70a5d992a90963d54ddf8f29347b/documentation/FoodieExpress.docx)
