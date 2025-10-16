@@ -14,15 +14,12 @@ mobile_number = "9448138524"
 email = "admin@example.com"
 password = "1234"
 
-if not User.objects.filter(mobile_number=mobile_number).exists():
+if not User.objects.filter(username=mobile_number).exists():
     User.objects.create_superuser(
         username=mobile_number,
         email=email,
         password=password,
-        mobile_number=mobile_number,
-        role='admin',
-        is_staff=True,
-        is_superuser=True
+        mobile_number=mobile_number
     )
     print("Superuser created successfully!")
 else:
