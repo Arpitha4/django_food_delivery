@@ -34,31 +34,28 @@
                     <td>
                         {% for item in booking.food_items.all %}
                             {{ item.name }}{% if not forloop.last %}, {% endif %}
-                        {% empty %}-{% endfor %}
+                        {% empty %}
+                            -
+                        {% endfor %}
                     </td>
                     <td class="status">{{ booking.status }}</td>
                     <td>
                         {% if booking.delivery_partner == request.user %}
-                            <!-- Enable actions only for the assigned delivery partner -->
                             {% for st in statuses %}
-                            <button class="status-btn"
-                                    style="margin:2px; padding:5px;"
-                                    data-id="{{ booking.id }}"
-                                    data-status="{{ st }}">
-                                {{ st }}
-                            </button>
+                                <button class="status-btn" data-id="{{ booking.id }}" data-status="{{ st }}">
+                                    {{ st }}
+                                </button>
                             {% endfor %}
                         {% else %}
-                            <!-- Disable buttons if not assigned to this delivery partner -->
                             {% for st in statuses %}
-                            <button class="status-btn" style="margin:2px; padding:5px;" disabled>
-                                {{ st }}
-                            </button>
+                                <button class="status-btn" disabled>{{ st }}</button>
                             {% endfor %}
                         {% endif %}
                     </td>
                     <td>
-                        <button class="btn btn-chat" data-booking="{{ booking.id }}" style="padding:5px;">Chat</button>
+                        <button class="btn btn-chat" data-booking="{{ booking.id }}">
+                            Chat
+                        </button>
                     </td>
                 </tr>
                 {% empty %}
@@ -71,16 +68,22 @@
     </section>
 </div>
 
-<div id="chat-modal" style="display:none;">
-    <div id="chat-content">
-        <span id="close-chat">&times;</span>
-        <h4>Chat with Delivery Partner</h4>
-        <div id="messages" style="height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px;"></div>
-        <input type="text" id="chat-input" placeholder="Type your message..." style="width:80%;">
-        <button id="send-btn">Send</button>
+<!-- CHAT MODAL -->
+<div id="chat-modal" class="chat-modal">
+    <div id="chat-content" class="chat-content">
+        <div class="chat-header">
+            <h4>Chat with Customer</h4>
+            <span id="close-chat" class="close-chat" title="Close chat">&times;</span>
+        </div>
+        <div id="messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="send-btn">Send</button>
+        </div>
     </div>
 </div>
 
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/delivery_dashboard.js' %}"></script>
 {% endblock %}

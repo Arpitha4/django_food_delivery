@@ -54,7 +54,6 @@
         {% if bookings %}
         <div class="booking-items-grid">
             {% for b in bookings %}
-            {% if b.status != "Cancelled" %}
             <div class="booking-card card">
                 <h4>Booking #{{ b.id }}</h4>
                 <p><strong>Delivery Address:</strong> {{ b.address }}</p>
@@ -71,14 +70,19 @@
                     {% endfor %}
                 </div>
                 <p><strong>Status:</strong> {{ b.status }}</p>
+
                 <div class="booking-actions">
-                    {% if b.status in "Start Reached Collected Delivered" %}
+                    {% if b.status|lower == "delivered" %}
+                    <button class="btn btn-chat" disabled style="background-color: gray; cursor: not-allowed;">
+                        Item Delivered
+                    </button>
+                    {% else %}
                     <button class="btn btn-chat" data-booking="{{ b.id }}">Chat</button>
                     {% endif %}
+
                     <a href="{% url 'cancel_booking' b.id %}" class="btn btn-cancel">Cancel</a>
                 </div>
             </div>
-            {% endif %}
             {% endfor %}
         </div>
         {% else %}
@@ -87,16 +91,16 @@
     </div>
 </div>
 
-<!-- CHAT MODAL -->
-<div id="chat-modal" style="display:none;">
+  <!-- CHAT MODAL -->
+  <div id="chat-modal" style="display:none;">
     <div id="chat-content">
-        <span id="close-chat">&times;</span>
-        <h4>Chat with Delivery Partner</h4>
-        <div id="messages" style="height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px;"></div>
-        <input type="text" id="chat-input" placeholder="Type your message..." style="width:80%;">
-        <button id="send-btn">Send</button>
+      <span id="close-chat">&times;</span>
+      <h4>Chat with Delivery Partner / Admin</h4>
+      <div id="messages"></div>
+      <input type="text" id="chat-input" placeholder="Type your message...">
+      <button id="send-btn">Send</button>
     </div>
-</div>
+  </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/customer_dashboard.js' %}"></script>
