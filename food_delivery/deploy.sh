@@ -12,4 +12,5 @@ python manage.py loaddata fixtures/initial_data.json
 python manage.py collectstatic --noinput
 
 # Start Gunicorn
-gunicorn food_delivery.wsgi
+gunicorn food_delivery.wsgi:application --bind 0.0.0.0:$PORT
+
