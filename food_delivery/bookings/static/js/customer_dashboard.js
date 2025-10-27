@@ -1,11 +1,12 @@
 let chatInterval;
 let currentBookingId = null;
 
-function fetchMessages(bookingId){
+// Fetch chat messages
+function fetchMessages(bookingId) {
     $.ajax({
         url: `/bookings/ajax/get-messages/${bookingId}/`,
         method: 'GET',
-        success: function(data){
+        success: function (data) {
             $('#messages').html('');
             if (Array.isArray(data)) {
                 data.forEach(msg => {
@@ -16,13 +17,14 @@ function fetchMessages(bookingId){
                 console.warn('Received non-array data', data);
             }
         },
-        error: function(err){
+        error: function (err) {
             console.error('Error fetching messages', err);
         }
     });
 }
 
-function openChatModal(bookingId){
+// Open chat modal
+function openChatModal(bookingId) {
     currentBookingId = bookingId;
     $('#chat-modal').show();
     $('#messages').html('');
@@ -30,18 +32,16 @@ function openChatModal(bookingId){
 
     fetchMessages(bookingId);
 
-    if(chatInterval) clearInterval(chatInterval);
-    chatInterval = setInterval(function(){
-        fetchMessages(bookingId);
-    }, 2000);
+    if (chatInterval) clearInterval(chatInterval);
+    chatInterval = setInterval(() => fetchMessages(bookingId), 2000);
 
-    function sendMessage(){
+    function sendMessage() {
         const message = $('#chat-input').val().trim();
-        if(message !== ''){
+        if (message !== '') {
             $.post(`/bookings/ajax/send-message/${bookingId}/`, {
                 message: message,
                 csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val()
-            }, function(){
+            }, function () {
                 fetchMessages(bookingId);
             });
             $('#chat-input').val('').focus();
@@ -49,64 +49,84 @@ function openChatModal(bookingId){
     }
 
     $('#send-btn').off('click').on('click', sendMessage);
-    $('#chat-input').off('keypress').on('keypress', function(e){
-        if(e.which === 13){
+    $('#chat-input').off('keypress').on('keypress', function (e) {
+        if (e.which === 13) {
             sendMessage();
             return false;
         }
     });
 }
 
-// Open chat
-$(document).on('click', '.btn-chat', function(){
+// Handle Chat Button Click
+$(document).on('click', '.btn-chat', function () {
     const bookingId = $(this).data('booking');
-    if(bookingId) openChatModal(bookingId);
+    if (bookingId) openChatModal(bookingId);
 });
 
-// Close chat
-$('#close-chat').click(function(){
+// Close chat modal
+$('#close-chat').click(function () {
     $('#chat-modal').hide();
-    if(chatInterval) clearInterval(chatInterval);
+    if (chatInterval) clearInterval(chatInterval);
     currentBookingId = null;
 });
 
-// DOM ready
-$(document).ready(function(){
+// Disable chat for delivered items
+function disableDeliveredChats() {
+    document.querySelectorAll('tr').forEach(row => {
+        const statusCell = row.querySelector('.status');
+        const chatButton = row.querySelector('.btn-chat');
+        if (statusCell && chatButton) {
+            const statusText = statusCell.textContent.trim().toLowerCase();
+            if (statusText === 'delivered') {
+                chatButton.disabled = true;
+                chatButton.textContent = 'Item Delivered';
+                chatButton.style.backgroundColor = '#d3d3d3';
+                chatButton.style.color = '#555';
+                chatButton.style.cursor = 'not-allowed';
+            }
+        }
+    });
+}
+
+// Run on load and periodically check
+$(document).ready(function () {
+    disableDeliveredChats();
+    setInterval(disableDeliveredChats, 3000);
 
     // Category filter
-    $('.category-btn').click(function(){
+    $('.category-btn').click(function () {
         var category = $(this).data('category');
         $('.category-btn').removeClass('active');
         $(this).addClass('active');
-        if(category === 'all'){
+        if (category === 'all') {
             $('.food-card').show();
         } else {
             $('.food-card').hide();
-            $('.food-card[data-category="'+category+'"]').show();
+            $('.food-card[data-category="' + category + '"]').show();
         }
     });
 
     // Open bookings panel
-    $('#open-bookings').click(function(){
+    $('#open-bookings').click(function () {
         $('#bookings-panel').toggleClass('visible');
     });
 
     // Close bookings panel
-    $('#close-panel').click(function(){
+    $('#close-panel').click(function () {
         $('#bookings-panel').removeClass('visible');
     });
 
     // Book selected food
-    $('.top-book-btn, #open-booking-modal').click(function(e){
+    $('.top-book-btn, #open-booking-modal').click(function (e) {
         e.preventDefault();
         const selected = $('#food-form input[name="food_ids"]:checked');
-        if(selected.length === 0){
+        if (selected.length === 0) {
             alert("Select at least one food item!");
             return;
         }
 
         const address = prompt("Enter your delivery address:");
-        if(!address || address.trim() === ""){
+        if (!address || address.trim() === "") {
             alert("Address is required to book the order.");
             return;
         }
@@ -114,5 +134,4 @@ $(document).ready(function(){
         $('#booking-address').val(address.trim());
         $('#food-form').submit();
     });
-
 });
